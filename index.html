@@ -1,49 +1,346 @@
-<html>
-    <head>
-        <title>Allans Önskelista 2019</title>
-        <style>
-  body {
-    background-color: aqua;
-  }
-  li {
-    color: rgb(18,60,67);
-  }
-  .morot {
-    color: rgb(0, 169, 104);
-    font-size: 55px;
-    font-family: sans-serif;
-  }
+<!DOCTYPE html>
+<html lang="sv">
+    <head>
+        <meta charset="utf-8" />
+        <title>Anmälan kollo</title>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet"> 
+        <style>
+            *:focus {
+                outline: dotted 1px #000;
+            }
+            body {
+                font-family: 'Roboto', sans-serif;
+                background-color: #f5ece0;
+                margin: 0;
+            }
+            .ingress {
+                width: 45%;
+                font-size: 20px;
+            }
+            .article__content {
+                background-color: #fff;
+                padding: 16px;
+                width: 67%;
+                margin: auto;
+                box-sizing: border-box;
+                margin-top: 30px;
+            }
+            .aktiviteter__wrapper {
+                display: flex;
+            }
+            .form__label {
+                display: block;
+                margin: 10px 0 5px;
+                font-size: 14px;
+            }
 
-  li:nth-child(odd) {
-    background-color: rgb(101,6,184);
-  }
-  li:nth-child(even) {
-      background-color:rgb(151, 94, 201);
-}
-            
-  
-            h1 {margin:0}
-            
-        </style>
-    </head>
-    <body>
-<script>
-const namn = prompt('Hej, vad heter du?','');
-const kottbulle = prompt('Hej, ' + namn + '! Kommer du att köpa julklappar till mig?', '');
-if ( kottbulle === 'ja' || kottbulle === 'JA' || kottbulle === 'Ja'){
-  alert('Tack, ' + namn + '!');
-}
-else {
-  alert(':(((');
-}
-</script>
-        <div class="morot">
-            <h1>Allans önskelista 2019 (för att jag är cool)</h1>
-            <ul>
-                <li>radiostyrd bil som inte är för sportig <img width="400px" src="https://www.maskinisten.net/userpix/16380_1L70NNAKWBKBN1508414548.jpg"></li><li>stegräknare</li><li>Lego (med beskrivning till)</li><li>nyckelring</li><li>Sött djur (magnet) att ha i skåpet i skolan (sugpropp kanske också funkar)</li></ul>
-            <p>Jag tror att det var allt som jag kunde komma på. Jag gjorde den själv, med en del hjälp från mamma. Tack och hej, leverpastej! (Asså jag är så cool för jag kan (nästan) html!)</p>
-            <p><img width="500px" src="https://cdn-rdb.arla.com/Files/arla-se/3776820023/44d39292-0f40-46d6-a91c-0ff5931476e0.jpg?mode=crop&w=1680&h=750&scale=both&ak=f525e733&hm=e6b63260" />
-            Och här är en random bild också.</p>
-</div>
-    </body>
+            .checkbox-label {
+                margin-right: 20px;
+            }
+            .bild {
+                background-color: #f2f2f2;
+                display: block;
+                height: auto;
+                width: 100%;
+            }
+            .aktiviteter__card__rubrik,
+            .aktiviteter__card__text {
+                padding: 16px;
+                margin: 0;
+                
+            }
+
+            .aktiviteter__card {
+                text-decoration: none;
+            }
+            .aktiviteter__card:hover {
+                border-color: #aaa;
+            }
+            .aktiviteter__card:hover .aktiviteter__card__rubrik,
+            .aktiviteter__card:hover .aktiviteter__card__text {
+                text-decoration: underline;
+            }
+
+            .aktiviteter__card__rubrik {
+                color: #000;
+            }
+            .aktiviteter__card__text {
+                padding: 0 16px 16px;
+            }
+            .aktiviteter__card {
+                border: 1px solid #f2f2f2;
+                margin-right: 10px;
+                width: 25%;
+                color: #000;
+            }
+           
+            .aktiviteter__card:last-child {
+                margin: 0;
+            }
+
+            h1 {
+                font-size: 34px;
+            }
+            h2 {
+                font-size: 24px;
+            }
+            h3 {
+                font-size: 20px;;
+            }
+
+            #anmalan {
+                width: 67%;
+            }
+            .form__helpertext{
+                font-size: 12px;
+                display: block;
+            }
+
+            .form__input {
+                width: 75%;
+                height: 20px;
+            }
+            .form__select {
+                width: 15%;
+                height: 30px;
+            }
+            .checkbox {
+                margin-left: 0;
+            }
+            fieldset {
+                margin-bottom: 10px;
+            }
+
+            .form__button {
+                height: 30px;
+                background-color: #12125e;
+                border: none;
+                color: #fff;
+                font-size: 14px;
+            }
+            .form__button:hover {
+                background-color: #b0b0ea;
+                color: #000;
+            }
+
+            .add-button {
+                background-color: #000;
+                position: relative;
+            }
+            .add-button:before {
+                content: '+';
+                position: absolute;
+                top: 0;
+                left: 28%;
+            }
+            .add-button,
+            .radera {
+                display: inline;
+                color: #fff;
+                border: none;
+                height: 25px;
+                width: 25px;
+                border-radius: 50%;
+                font-size: 19px;
+                padding: 0 5px 2px;
+                margin-left: 5px;
+                vertical-align: middle;
+            }
+
+            .radera {
+                position: absolute;
+                right: 0;
+                bottom: 2px;
+                background-color: transparent;
+            }
+            .radera::after {
+                content: '';
+                display: block;
+                background-image: url('bilder/papperskorg.png');
+                background-size: 12px;
+                width: 12px;
+                height: 12px;
+                background-repeat: no-repeat;
+            }
+
+            #intresselista {
+                margin-top: 16px;
+            }
+            .intressepost {
+                display: block;
+                position: relative;
+                padding: 5px;
+            }
+            .intressepost:nth-child(even) {
+                background-color: #ecebf2;
+            }
+
+            hr {
+                margin: 50px 0;
+                width: 67%;
+            }
+
+            @media(max-width: 768px) {
+                .aktiviteter__wrapper {
+                    flex-direction: column;
+                }
+                .aktiviteter__card {
+                    width: 100%;
+                    margin-right: 0;
+                }
+
+                .article__content {
+                    width: 95%;
+                }
+                hr {
+                    width: 100%;
+                }
+                #anmalan {
+                    width: 100%;
+                }
+                .form__button {
+                    margin-bottom: 16px;
+                }
+                .ingress {
+                    width: 100%;
+                }
+            }
+
+        </style>
+    </head>
+    <body>
+        <main class="main">
+            <article class="article__content">
+                <header>
+                    <h1>Kollo sommaren 2020</h1>
+                </header>
+                <p class="ingress">Kollo är en lägerverksamhet för barn som är mellan 10 och 15 år gamla. Läs om några av våra aktiviteter och skicka in en anmälan om du är intreserad av kollo 2020. </p>
+                
+                <hr />
+                <section class="aktiviteter">
+                    <h2>Populära aktiviteter</h2>
+                    <div class="aktiviteter__wrapper">
+                        <a class="aktiviteter__card" href="aktiviteter/mat">
+                            <img class="bild" src="bilder/mat.jpg" alt="Köttbullar med lingon och brunsås på en tallrik" />
+                            <h3 class="aktiviteter__card__rubrik">Matlagning</h3>
+                            <p class="aktiviteter__card__text">Vi lagar mat och har roligt tillsammans</p>
+                        </a>
+                        <a class="aktiviteter__card" href="aktiviteter/lekar">
+                           <img class="bild" src="bilder/barn.jpg" alt="Tre barn leker utomhus" />
+                            <h3 class="aktiviteter__card__rubrik">Lekar</h3>
+                            <p class="aktiviteter__card__text">Roliga lekar både ute och inomhus</p>
+                        </a>
+                        <a class="aktiviteter__card" href="aktiviteter/slojd">
+                            <img class="bild" src="bilder/slojd.jpg" alt="Hand som håller en nytäljd smörkniv" />
+                            <h3 class="aktiviteter__card__rubrik">Slöjd</h3>
+                            <p class="aktiviteter__card__text">Träslöjd och syslöjd i fina nya lokaler</p>
+                        </a>
+                        <a class="aktiviteter__card" href="aktiviteter/idrott">
+                            <img class="bild" src="bilder/fotboll.jpg" alt="En grupp barn tränar fotboll med koner på en plan">
+                            <h3 class="aktiviteter__card__rubrik">Idrott</h3>
+                            <p class="aktiviteter__card__text">Testa på olika nya idrotter och sporter</p>
+                        </a>
+                    </div>
+                </section>
+                <hr />
+                <h2>Anmäl dig till kollo</h2>
+                <form id="anmalan">
+                    <fieldset>
+                        <legend>Personuppgifter</legend>
+                        <label class="form__label" for="namn">Namn *</label>
+                        <input class="form__input" type="text" id="namn" name="namn" required />
+                        <span class="form__helpertext"><span class="icon-info"></span>Skriv ditt för- och efternamn</span>
+
+                        <label class="form__label" for="epost">Epost *</label>
+                        <input class="form__input" type="email" id="epost" name="epost" required />
+
+                        <label class="form__label" for="alder">Ålder</label>
+                        <select class="form__select" id="alder" name="alder">
+                            <option>10</option>
+                            <option>11</option>
+                            <option>12</option>
+                            <option>13</option>
+                            <option>14</option>
+                            <option>15</option>
+                        </select>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Dina intressen</legend>
+                        <label class="form__label" for="intressen">Dina intressen</label>
+                        <input class="form__input" type="text" id="intressen" name="intressen" placeholder="T.ex. Idrott, Slöjd, Matlagning..." /><button class="add-button" aria-label="Lägg till raden" onclick="addToList(event)"></button>
+                        <input type="hidden" id="intresselistahidden" />
+                        <div id="intresselista"></div>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Boende</legend>
+                        <input type="radio" name="boende" id="ja" value="ja" /><label for="ja">Ja</label>
+                        <input type="radio" name="boende" id="nej" value="nej" /><label for="nej">Nej</label>
+                        <p>Jag kan ta med</p>
+                        <input class="checkbox" type="checkbox" id="sovsack" name="sovsack" /><label class="checkbox-label" for="sovsack">Sovsäck</label>
+                        <input class="checkbox" type="checkbox" id="kudde" name="kudde" /><label class="checkbox-label" for="kudde">Kudde</label>
+                        <input class="checkbox" type="checkbox" id="liggunderlag" name="liggunderlag" /><label class="checkbox-label" for="liggunderlag">Liggunderlag</label>
+
+                    </fieldset>
+                    <input class="form__button" type="submit" value="Skicka in anmälan" />
+                    <button class="form__button" onclick="document.getElementById('anmalan').reset();document.getElementById('intresselista').innerHTML='';document.getElementById('intresselistahidden').value='';">Rensa ansökan</button>
+                </form>
+            </article>
+        </main>
+        <script>
+            function addToList(e) {
+                e.preventDefault();
+                const source = document.getElementById('intressen').value;
+                const target = document.getElementById('intresselista');                
+                if ( source !== '' ) {
+                    target.innerHTML += '<span class="intressepost">' + source + '<button class="radera" aria-label="Radera raden" onclick="deleteFromList(this)"></span></button></span>';
+                    document.getElementById('intressen').value = '';
+                    document.getElementById('intresselistahidden').value += source + ',';
+                }
+            }
+
+            function deleteFromList(element) {
+                element.parentElement.remove();
+                const hiddenlist = document.getElementById('intresselistahidden').value;
+                const posts = document.getElementsByClassName('intressepost');
+                let list = ''
+                for (let i = 0; i < posts.length; i++ ) {
+                    list += posts[i].firstChild.data + ',' ;
+                }
+                document.getElementById('intresselistahidden').value = list;
+            }
+
+            const form = document.getElementById("anmalan");
+            form.addEventListener("submit", function(event) {
+                if (document.getElementById('namn').value !== '' && document.getElementById('epost').value !== '' ) {
+                    event.preventDefault();
+                    const intresselista = document.getElementById('intresselistahidden').value;
+                    const params = JSON.stringify({
+                        'namn': document.getElementById('namn').value,
+                        'epost': document.getElementById('epost').value,
+                        'alder': document.getElementById('alder').value,
+                        'intressen': intresselista.substring(0, intresselista.length - 1),
+                        'boende': document.getElementById('ja').value,
+                        'boende': document.getElementById('nej').value,
+                        'sovsack': document.getElementById('sovsack').value,
+                        'kudde': document.getElementById('kudde').value,
+                        'liggunderlag': document.getElementById('liggunderlag').value
+                    });
+                   
+                    const xhttp = new XMLHttpRequest();
+                    xhttp.onreadystatechange = function() {
+                        if (this.readyState == 4 && this.status == 200) {
+                            alert('Tack för din anmälan!');
+                        }
+                    };
+                  
+                    xhttp.open('POST', '', true);   
+                    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");                
+                    xhttp.send(params);
+
+                    document.getElementById('anmalan').reset();
+                    document.getElementById('intresselista').innerHTML = '';
+                }
+            });
+        </script>
+    </body>
 </html>
