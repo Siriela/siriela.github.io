@@ -1,6 +1,6 @@
 let running;
 let timer = running ? setInterval(startTimer, 1000) : false;
-let seconds = localStorage.getItem('timer') ? localStorage.getItem('timer') : document.getElementById('set-time').value;
+let seconds = localStorage.getItem('timer') ? localStorage.getItem('timer') : 10; //document.getElementById('set-time').value;
 
 window.onload = () => document.getElementById('time').innerHTML = seconds;
 
