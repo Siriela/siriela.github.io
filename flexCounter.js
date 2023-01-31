@@ -1,13 +1,6 @@
-//import module
-//import localStorage from 'localStorage';
-// const jsdom = require("jsdom");
-// const { JSDOM } = jsdom;
-
-// constructor function to create a storage directory inside our project for all our localStorage setItem.
-//global.document = new JSDOM(html).window.document;
 let running;
 let timer = running ? setInterval(startTimer, 1000) : false;
-let seconds = localStorage.getItem('timer') ? localStorage.getItem('timer') : window.getElementById('set-time').value;
+let seconds = localStorage.getItem('timer') ? localStorage.getItem('timer') : document.getElementById('set-time').value;
 
 window.onload = () => document.getElementById('time').innerHTML = seconds;
 
