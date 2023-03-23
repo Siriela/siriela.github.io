@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html manifest="manifest.mf" lang="sv">
+<head>
+<title>Flex Counter</title>
+<link rel="stylesheet" href="css/index.css" type="text/css" />
+</head>
+<body>
+<script type="text/javascript" src="js/index.js" ></script>
+<main>
+<h1 class="title">Räkna flex!</h1>
+<label for="set-time">Sätt tid:</label>
+<input type="number" id="set-hours" value="00"/>:
+<input type="number" id="set-minutes" value="00"/>:
+<input type="number" id="set-seconds" value="00"/>
+
+<div id="times-up"></div>
+<button id="start-stop" onclick="start()" class="start-stop">Starta</button>
+<button id="reset" onclick="reset()" class="start-stop">Nollställ</button>
+
+<div id="debug"></div>
+<div id="overlay"></div>
+
+    
+
+   
+<dialog id="count-dialog">
+    <div id="time" class="show-counter">00:00:00</div>
+    <div class="buttons">
+        <button id="reset" onclick="stopp()" class="start-stop">Stoppa</button>
+    </div>
+</dialog>
+</main>
+</body>
+</html>
