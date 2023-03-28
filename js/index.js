@@ -12,13 +12,14 @@ const beforeUnloadListener = () => {
 
 
 function start(){   
-    if (localStorage.getItem('timer')) { seconds = localStorage.getItem('timer')};
-    seconds = state === 'reset' || state === false ? parseInt(document.getElementById('set-hours').value) * 3600 + parseInt(document.getElementById('set-minutes').value) * 60 + parseInt(document.getElementById('set-seconds').value) : localStorage.getItem('timer');
+    //if (localStorage.getItem('timer')) { seconds = localStorage.getItem('timer')};
+    if (localStorage.getItem('timer')) {seconds = localStorage.getItem('timer');}
+    else {
+        seconds = parseInt(document.getElementById('set-hours').value) * 3600 + parseInt(document.getElementById('set-minutes').value) * 60 + parseInt(document.getElementById('set-seconds').value);
+    }
     timer = setInterval(startTimer, 1000);
-    document.getElementById('count-dialog').setAttribute('open', 'open');
-    document.getElementById('overlay').setAttribute('style', 'display: block');
-    console.log(seconds);
-    state = 'stopped';
+    closeModal();
+    
 }
 
 window.addEventListener('freeze', beforeUnloadListener);
@@ -37,12 +38,18 @@ function reset() {
     state = 'reset';
 }
 
+function openDialog() {
+    console.log('sdf');
+    document.getElementById('count-dialog').setAttribute('open', 'open').setAttribute('style', 'display: flex');
+    document.getElementById('overlay').setAttribute('style', 'display: block');
+}
+
 function stopp() {
     document.getElementById('start-stop').classList.remove('running');
     clearInterval(timer);
     localStorage.setItem('timer', seconds);
-    closeModal();
-    stopped = true;
+    
+    
 }
 
 function timesUp() {
@@ -57,15 +64,15 @@ function sploink () {
 }
 
 function startTimer() {
+    
     const minutes = seconds / 60;
     const hours = minutes / 60;
     displaySeconds = seconds % 60;
     displayMinutes = minutes % 60;
 
-    seconds--;   
-  
     document.getElementById('time').innerHTML = seconds > 0 ? Math.floor(hours) + ':' + Math.floor(displayMinutes) + ':' + displaySeconds : seconds.toString().replace('-', '');
     seconds === 0 && timesUp();
+    seconds--;   
 }
 
 function stopTimer(timer) {
