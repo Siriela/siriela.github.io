@@ -3,7 +3,9 @@ let state = false;
 let timer = false;
 let seconds = localStorage.getItem('timer') ? localStorage.getItem('timer') : 0;
 
-const beforeUnloadListener = () => {
+const unloadListener = (e) => {
+    e.preventDefault();
+    e.returnValue = '';
     localStorage.setItem('timer', seconds);
 };
 
@@ -22,8 +24,9 @@ function start(){
     
 }
 
-window.addEventListener('freeze', beforeUnloadListener);
-
+// window.addEventListener('beforeunload', unloadListener);
+window.addEventListener('beforeunload', unloadListener);
+  
 
 
 function reset() {
