@@ -11,9 +11,9 @@ const unloadListener = (e) => {
 
 //window.addEventListener("beforeunload", beforeUnloadListener);
 
-
-
-function start(){   
+function start(){ 
+    running = true;  
+    console.log('start ', running);
     //if (localStorage.getItem('timer')) { seconds = localStorage.getItem('timer')};
     if (localStorage.getItem('timer')) {seconds = localStorage.getItem('timer');}
     else {
@@ -48,11 +48,18 @@ function openDialog() {
 }
 
 function stopp() {
+    running = false;
+    console.log('stop ', running);
     document.getElementById('start-stop').classList.remove('running');
     clearInterval(timer);
     localStorage.setItem('timer', seconds);
-    
-    
+}
+
+function resume() {
+    console.log('resume ', running);
+    if (!running) {
+        start();
+    }
 }
 
 function timesUp() {
