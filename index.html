@@ -26,15 +26,15 @@
 <dialog id="count-dialog">
     <div class="count-dialog-inner">
         <h2>Sätt tid</h2>
-        <button id="resume-from-dialog" onclick="resume()" class="button">Återuppta</button>
+        <button id="resume-from-dialog" onclick="resume()" aria-label="Stäng" class="button">X</button>
         <label for="set-hours">Timmar:</label>
         <input type="number" id="set-hours">:
         <label for="set-minutes">Minuter:</label>
         <input type="number" id="set-minutes">:
         <label for="set-seconds">Sekunder:</label>
         <input type="number" id="set-seconds">
-        <button id="start-stop" onclick="start()" class="start-stop">Starta</button>
-        <button id="reset" onclick="reset()" class="start-stop">Nollställ</button>
+        <button id="start-stop" onclick="start()" class="button start-stop">Starta</button>
+        <button id="reset" onclick="reset()" class="button start-stop">Nollställ</button>
     </div>
 </dialog>
 </body>
