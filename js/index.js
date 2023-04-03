@@ -1,13 +1,25 @@
 let running = false;
 let state = false;
 let timer = false;
-let seconds = localStorage.getItem('timer') ? localStorage.getItem('timer') : 0;
+let seconds; // = localStorage.getItem('timer') ? localStorage.getItem('timer') : 0;
+let timeDiff;
 
 const unloadListener = (e) => {
     e.preventDefault();
     e.returnValue = '';
     localStorage.setItem('timer', seconds);
+    localStorage.setItem('timestampLeave', Date.now());
 };
+
+const onLoad = (e) => {
+    
+    const oldTime = parseInt(localStorage.getItem('timestampLeave'));
+    const now = Date.now();
+    timeDiff = oldTime ? Math.floor((now - oldTime) / 1000) : 0;
+  
+    seconds = localStorage.getItem('timer') ? localStorage.getItem('timer') - timeDiff : 0;
+    console.log(seconds);
+}
 
 //window.addEventListener("beforeunload", beforeUnloadListener);
 
@@ -15,7 +27,7 @@ function start(){
     running = true;  
     console.log('start ', running);
     //if (localStorage.getItem('timer')) { seconds = localStorage.getItem('timer')};
-    if (localStorage.getItem('timer')) {seconds = localStorage.getItem('timer');}
+    if (localStorage.getItem('timer')) {seconds = localStorage.getItem('timer') - timeDiff;}
     else {
         seconds = parseInt(document.getElementById('set-hours').value) * 3600 + parseInt(document.getElementById('set-minutes').value) * 60 + parseInt(document.getElementById('set-seconds').value);
     }
@@ -26,6 +38,7 @@ function start(){
 
 // window.addEventListener('beforeunload', unloadListener);
 window.addEventListener('beforeunload', unloadListener);
+window.addEventListener('load', onLoad);
   
 
 
@@ -43,7 +56,7 @@ function reset() {
 
 function openDialog() {
     console.log('sdf');
-    document.getElementById('count-dialog').setAttribute('open', 'open').setAttribute('style', 'display: flex');
+    document.getElementById('count-dialog').setAttribute('open', 'open');
     document.getElementById('overlay').setAttribute('style', 'display: block');
 }
 
@@ -74,7 +87,13 @@ function sploink () {
 }
 
 function startTimer() {
-    
+    if (document.getElementById('wrapper').classList.contains('pulse')) {
+        document.getElementById('wrapper').classList.remove('pulse');
+    }
+    else {
+        document.getElementById('wrapper').classList.add('pulse');
+    }
+   
     const minutes = seconds / 60;
     const hours = minutes / 60;
     displaySeconds = seconds % 60;

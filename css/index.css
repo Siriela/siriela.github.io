@@ -3,6 +3,16 @@ Blue Grotto: #189ab4
 Blue Green: #75e6da
 Baby Blue: #d4f1f4 */
 
+@keyframes shadowPulse {
+    from {
+        box-shadow: 0 0 50px 10px #f25f8b;
+    }
+  
+    to {
+        box-shadow: 0 0 50px -10px var(--baby-blue);
+    }
+  }
+
 :root {
     --navy-blue: #05445e;
     --blue-grotto: #189ab4;
@@ -24,13 +34,7 @@ body {
 
 .button {
     font-size: 1.5rem;
-    background-color: var(--blue-grotto);
-    border-color: var(--blue-grotto);
-    border-radius: 5px;
-    box-shadow: none;
-    padding: .25rem;
     transition: background-color ease-in .5s;
-    margin-bottom: .5rem;
     font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; 
 }
 
@@ -56,6 +60,40 @@ body {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    z-index: 100;
+}
+
+.inner {
+    position: relative;
+}
+
+.main-wrapper.button-wrapper {
+    background-color: var(--blue-grotto);
+}
+
+.button-wrapper {
+    margin-top: -100px;
+    z-index: 1000;
+    margin-right: 22px;
+    position: absolute;
+    right: 50%;
+    width: 125px;
+    height: 125px;;
+}
+
+.set {
+    right: 37%;
+    bottom: 37%;
+}
+
+.stop {
+    top: 50%;
+    left: 20%;
+}
+
+.main-wrapper.pulse {
+    animation-duration: 1s;
+    animation-name: shadowPulse;
 }
 
 

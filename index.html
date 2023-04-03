@@ -9,24 +9,27 @@
 <script type="text/javascript" src="js/index.js" ></script>
 <main>
     <div class="inner">
-    <h1 class="title">Flextid</h1>
-    <div id="times-up"></div>
-        <div class="main-wrapper">
+        <h1 class="title">Flextid</h1>
+        <div id="times-up"></div>
+        <div class="main-wrapper" id="wrapper">
             <div id="time" class="show-counter">00:00:00</div>
-                <div class="buttons">
-                    <button id="reset" onclick="stopp()" class="button">Stoppa</button>
-                    <button id="set" onclick="openDialog()" class="button">Sätt tid</button>
-                    <button id="resume" onclick="resume()" class="button">Återuppta</button>
-                </div>
-            </div>
         </div>
+        <button id="reset" onclick="stopp()" class="button main-wrapper button-wrapper stop">
+            Stoppa
+        </button>
+        <button id="set" onclick="openDialog()" class="button main-wrapper button-wrapper set">
+            Sätt tid
+        </button>
+        <button id="resume" onclick="resume()" class="button main-wrapper button-wrapper resume">
+            Återuppta
+        </button>
     </div>
 </main>
 <div id="overlay"></div>
 <dialog id="count-dialog">
     <div class="count-dialog-inner">
         <h2>Sätt tid</h2>
-        <button id="resume-from-dialog" onclick="resume()" aria-label="Stäng" class="button">X</button>
+        <button id="resume-from-dialog" onclick="closeModal()" aria-label="Stäng" class="button">X</button>
         <label for="set-hours">Timmar:</label>
         <input type="number" id="set-hours">:
         <label for="set-minutes">Minuter:</label>
