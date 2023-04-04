@@ -21,17 +21,37 @@ const onLoad = (e) => {
 }
 
 const onBlur = () => {
-    console.log('blur');
+    console.log('blur', seconds);
+    localStorage.setItem('timer', seconds);
+    localStorage.setItem('timestampLeave', Date.now());
 }
 
 const onFocus = () => {
-    console.log('focus');
+    console.log('focus', seconds);
+
+    const oldTime = parseInt(localStorage.getItem('timestampLeave'));
+    const now = Date.now();
+    timeDiff = oldTime ? Math.floor((now - oldTime) / 1000) : 0;
+  
+    seconds = localStorage.getItem('timer') ? localStorage.getItem('timer') - timeDiff : 0;
+   
 }
 
 const onVisibilityChange = () => {
-    console.log('visibilitychange');
-    localStorage.setItem('timer', seconds);
-    localStorage.setItem('timestampLeave', Date.now());
+    // if (document.hidden) {
+    //     console.log('hidden', seconds);
+    //     localStorage.setItem('timestampLeave', Date.now());
+    //     localStorage.setItem('timer', seconds);
+    // }
+    // else {
+        const oldTime = parseInt(localStorage.getItem('timestampLeave'));
+        const now = Date.now();
+        timeDiff = oldTime ? Math.floor((now - oldTime) / 1000) : 0;
+    
+        seconds = localStorage.getItem('timer') ? localStorage.getItem('timer') - timeDiff : 0;
+        console.log('not-hidden', seconds);
+   // };
+    
 }
 
 //window.addEventListener("beforeunload", beforeUnloadListener);
@@ -56,8 +76,15 @@ function start(){
 window.addEventListener('beforeunload', unloadListener);
 window.addEventListener('load', onLoad);
 window.addEventListener('blur', onBlur);
-window.addEventListener('focus', onFocus);
+//document.addEventListener('focus', onFocus);
 document.addEventListener('visibilitychange', onVisibilityChange);
+window.addEventListener("disconnect", (event) => {
+    console.log('disconnect window');
+});
+
+document.addEventListener("disconnect", (event) => {
+    console.log('disconnect document');
+});
 
 
 function reset() {
@@ -116,6 +143,7 @@ function startTimer() {
     document.getElementById('time').innerHTML = seconds > 0 ? Math.floor(hours) + ':' + Math.floor(displayMinutes) + ':' + displaySeconds : seconds.toString().replace('-', '');
     seconds === 0 && timesUp();
     seconds--;   
+    //console.log(Date(Date.now()));
 }
 
 function stopTimer(timer) {

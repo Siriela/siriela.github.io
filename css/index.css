@@ -72,7 +72,7 @@ body {
 }
 
 .pulse {
-    animation: shadow-pulse 3s infinite;
+    animation: shadow-pulse 1s infinite;
 }
 
 .inner {
