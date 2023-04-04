@@ -12,18 +12,34 @@ const unloadListener = (e) => {
 };
 
 const onLoad = (e) => {
-    
     const oldTime = parseInt(localStorage.getItem('timestampLeave'));
     const now = Date.now();
     timeDiff = oldTime ? Math.floor((now - oldTime) / 1000) : 0;
   
     seconds = localStorage.getItem('timer') ? localStorage.getItem('timer') - timeDiff : 0;
-    console.log(seconds);
+    console.log('load');
+}
+
+const onBlur = () => {
+    console.log('blur');
+}
+
+const onFocus = () => {
+    console.log('focus');
+}
+
+const onVisibilityChange = () => {
+    console.log('visibilitychange');
+    localStorage.setItem('timer', seconds);
+    localStorage.setItem('timestampLeave', Date.now());
 }
 
 //window.addEventListener("beforeunload", beforeUnloadListener);
 
 function start(){ 
+
+    document.getElementById('wrapper').classList.add('pulse');
+    
     running = true;  
     console.log('start ', running);
     //if (localStorage.getItem('timer')) { seconds = localStorage.getItem('timer')};
@@ -39,7 +55,9 @@ function start(){
 // window.addEventListener('beforeunload', unloadListener);
 window.addEventListener('beforeunload', unloadListener);
 window.addEventListener('load', onLoad);
-  
+window.addEventListener('blur', onBlur);
+window.addEventListener('focus', onFocus);
+document.addEventListener('visibilitychange', onVisibilityChange);
 
 
 function reset() {
@@ -61,6 +79,9 @@ function openDialog() {
 }
 
 function stopp() {
+
+    document.getElementById('wrapper').classList.remove('pulse');
+
     running = false;
     console.log('stop ', running);
     document.getElementById('start-stop').classList.remove('running');
@@ -86,14 +107,7 @@ function sploink () {
 	sploink.play();
 }
 
-function startTimer() {
-    if (document.getElementById('wrapper').classList.contains('pulse')) {
-        document.getElementById('wrapper').classList.remove('pulse');
-    }
-    else {
-        document.getElementById('wrapper').classList.add('pulse');
-    }
-   
+function startTimer() {   
     const minutes = seconds / 60;
     const hours = minutes / 60;
     displaySeconds = seconds % 60;

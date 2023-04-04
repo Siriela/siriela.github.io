@@ -3,15 +3,23 @@ Blue Grotto: #189ab4
 Blue Green: #75e6da
 Baby Blue: #d4f1f4 */
 
-@keyframes shadowPulse {
-    from {
+@keyframes shadow-pulse {
+    0% {
         box-shadow: 0 0 50px 10px #f25f8b;
     }
   
-    to {
+    50% {
         box-shadow: 0 0 50px -10px var(--baby-blue);
     }
+    100% {
+        box-shadow: 0 0 50px 10px #f25f8b;
+    }
   }
+
+@keyframes mymove {
+    0%   {background: red;}
+    100% {background: yellow;}
+}
 
 :root {
     --navy-blue: #05445e;
@@ -63,6 +71,10 @@ body {
     z-index: 100;
 }
 
+.pulse {
+    animation: shadow-pulse 3s infinite;
+}
+
 .inner {
     position: relative;
 }
@@ -90,12 +102,6 @@ body {
     top: 50%;
     left: 20%;
 }
-
-.main-wrapper.pulse {
-    animation-duration: 1s;
-    animation-name: shadowPulse;
-}
-
 
 #count-dialog {
     background-color: rgba(24,154,180, .9);
