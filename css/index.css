@@ -5,21 +5,17 @@ Baby Blue: #d4f1f4 */
 
 @keyframes shadow-pulse {
     0% {
-        box-shadow: 0 0 50px 10px #f25f8b;
+        box-shadow: 0 0 50px 10px #000;
     }
-  
+ 
     50% {
-        box-shadow: 0 0 50px -10px var(--baby-blue);
+        box-shadow: 0 0 50px -10px #022914;
     }
+
     100% {
-        box-shadow: 0 0 50px 10px #f25f8b;
+        box-shadow: 0 0 50px 10px #000;
     }
   }
-
-@keyframes mymove {
-    0%   {background: red;}
-    100% {background: yellow;}
-}
 
 :root {
     --navy-blue: #05445e;
@@ -37,7 +33,12 @@ body {
     font-size: 6rem;
     text-align: center;
     color: var(--blue-green);
-    text-shadow: 0px 0px 20px var(--blue-green);
+    text-shadow: 0px 0px 20px #000;
+}
+
+.dialog-title {
+    font-size: 4rem;
+    text-align: center;
 }
 
 .button {
@@ -72,7 +73,7 @@ body {
 }
 
 .pulse {
-    animation: shadow-pulse 1s infinite;
+    animation: shadow-pulse 4s infinite;
 }
 
 .inner {
@@ -81,6 +82,7 @@ body {
 
 .main-wrapper.button-wrapper {
     background-color: var(--blue-grotto);
+    box-shadow: none;
 }
 
 .button-wrapper {
@@ -93,25 +95,43 @@ body {
     height: 125px;;
 }
 
-.set {
-    right: 37%;
-    bottom: 37%;
+#set {
+    top: 89px;
+    right: -35px;
 }
 
-.stop {
-    top: 50%;
-    left: 20%;
+#stop {
+    top: 55px;
+    left: 0;
+}
+
+#resume {
+    bottom: 0;
+    left: 0;
 }
 
 #count-dialog {
     background-color: rgba(24,154,180, .9);
     z-index: 1000;
-    width: 36%;
+    width: 360px;
+    max-width: 80%;
     min-height: 315px;
     position: absolute;
     top: 32%;
     text-align: center;
     border-radius: 10px;
+}
+
+.control-wrapper {
+    display: flex;
+    flex-direction: row;;
+}
+
+.control {
+    height: 38px;
+    width: 108px;
+    border-radius: 5px;
+    border: var(--navy-blue);
 }
 
 #resume-from-dialog {
