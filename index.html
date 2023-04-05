@@ -6,24 +6,25 @@
 <link rel="stylesheet" href="css/index.css" type="text/css" />
 </head>
 <body>
-<script type="text/javascript" src="js/index.js" ></script>
+<script src="js/index.js" ></script>
 <main>
     <div class="inner">
         <h1 class="title">Flex</h1>
         <div id="times-up"></div>
         <div class="main-wrapper" id="wrapper">
+            <div id="chosen-time"></div>
             <div id="time" class="show-counter">00:00:00</div>
-            <button id="stop" onclick="stopp()" class="button main-wrapper button-wrapper">
-                Stoppa
-            </button>
+            <button id="stop" onclick="pause()" class="button main-wrapper button-wrapper"></button>
             <button id="set" onclick="openDialog()" class="button main-wrapper button-wrapper">
                 Sätt tid
             </button>
-            <button id="resume" onclick="resume()" class="button main-wrapper button-wrapper">
-                Återuppta
+            <button id="finnish" onclick="save(document.getElementById('time').innerText)" class="button main-wrapper button-wrapper">
+                Klar
             </button>
         </div>
-       
+    </div>
+    <div clas="results">
+        <div id="result"></div>
     </div>
 </main>
 <div id="overlay"></div>
