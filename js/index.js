@@ -16,7 +16,7 @@ const onBeforeUnload = (e) => {
 };
 
 const onLoad = () => {
-    document.getElementById('stop').innerText = labelStartPauseButton();
+    document.getElementById('stop').innerHTML = labelStartPauseButton();
     const oldTime = parseInt(localStorage.getItem('timestampLeave'));
     const now = Date.now();
     timeDiff = oldTime ? Math.floor((now - oldTime) / 1000) : 0;
@@ -63,7 +63,7 @@ function start(){
 
     running = true; 
     closeModal();
-    document.getElementById('stop').innerText = labelStartPauseButton();
+    document.getElementById('stop').innerHTML = labelStartPauseButton();
     if (document.getElementById('chosen-time').innerText === '') {
         document.getElementById('chosen-time').innerText = parseTime();
         chosenTime = parseTime();
@@ -89,7 +89,8 @@ function openDialog() {
 }
 
 const labelStartPauseButton = () => {
-    return running ? 'Pausa' : 'Starta';
+   
+    return running ? ' <span class="material-symbols-outlined">pause</span>Pausa' : '<span class="material-symbols-outlined">play_arrow</span>Starta';
 }
 
 function pause() {
@@ -97,20 +98,18 @@ function pause() {
         document.getElementById('wrapper').classList.remove('pulse');
         clearInterval(timer);
         localStorage.setItem('timer', seconds);
-        document.getElementById('stop').innerText = 'Starta';
+        document.getElementById('stop').innerHTML = '<span class="material-symbols-outlined">play_arrow</span>Starta';
         running = false;
         paused = true;
     }
     else {
         start();
-        document.getElementById('stop').innerText = 'Pausa';
+        document.getElementById('stop').innerHTML = '<span class="material-symbols-outlined">pause</span>Pausa';
         paused = false;
     }
 }
 
 function timesUp() {
-    document.getElementById('times-up').innerHTML = seconds.toString().replace('-', '');
-    document.getElementById('times-up').innerHTML = 'Klart!';
     sploink();
 }
 
@@ -159,17 +158,22 @@ function closeModal() {
 }
 
 function save(value) {   
-    console.log(seconds); 
     if (seconds !== 0) {
         savedArr.push(value);
-        const valueNode = document.createTextNode(value);
-        const resultEl = document.getElementById('results');
         
-        resultEl.appendChild(document.createElement('div')).appendChild(valueNode);
-    
+        const now = new Date();
+        const nowDate = now.getDate() + '/' + parseInt(now.getMonth() + 1) + '/' + new Date().getFullYear();
+       
+        const valueNode = document.createTextNode(nowDate + ': ' + value);
+        const resultEl = document.getElementById('results');
         stopTimer(timer);
-        document.getElementById('stop').innerText = 'Starta';
+        document.getElementById('stop').innerHTML = '<span class="material-symbols-outlined">play_arrow</span>Starta';
         reset();
+       
+        setTimeout( () => {
+            document.getElementById('resetResults').setAttribute('style', 'display: block');
+            resultEl.appendChild(document.createElement('div')).appendChild(valueNode);
+        }, 500);
     }
     else {
         return false;
@@ -177,7 +181,10 @@ function save(value) {
 }
 
 function resetResults() {
+    setTimeout( () => {
+        document.getElementById('resetResults').removeAttribute('style');
+        document.getElementById('results').innerHTML = '';
+    }, 300);
     localStorage.removeItem('saved');
     savedArr = [];
-    document.getElementById('results').innerHTML = '';
 }
