@@ -163,3 +163,23 @@ body {
     position: absolute;
     top: 0;
 }
+
+#results {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+#results div {
+    background-color: var(--blue-green);
+    margin: 1rem;
+    padding: 2.2rem 1rem;
+    border-radius: 50%;
+    max-width: 60px;
+}
+
+#resetResults {
+    bottom: 140px;
+    left: 60px;
+    right: auto;
+}

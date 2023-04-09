@@ -3,21 +3,31 @@ let state = false;
 let timer = false;
 let seconds; 
 let timeDiff;
+let chosenTime;
+let paused;
+let savedArr = localStorage.getItem('saved') ? localStorage.getItem('saved').split(',') : [];
 
 const onBeforeUnload = (e) => {
     e.preventDefault();
     e.returnValue = '';
     localStorage.setItem('timer', seconds);
     localStorage.setItem('timestampLeave', Date.now());
+    localStorage.setItem('saved', savedArr);
 };
 
 const onLoad = () => {
-    console.log(running);
     document.getElementById('stop').innerText = labelStartPauseButton();
     const oldTime = parseInt(localStorage.getItem('timestampLeave'));
     const now = Date.now();
     timeDiff = oldTime ? Math.floor((now - oldTime) / 1000) : 0;
     seconds = localStorage.getItem('timer') ? localStorage.getItem('timer') - timeDiff : 0;
+    
+    const savedTimes = localStorage.getItem('saved');
+    const resultEl = document.getElementById('results');
+    savedTimes.split(',').map( ( item ) => {
+        const valueNode = item !== '' && document.createTextNode(item);
+        valueNode && resultEl.appendChild(document.createElement('div')).appendChild(valueNode);
+    });
 }
 
 const onBlur = () => {
@@ -40,15 +50,24 @@ window.addEventListener('visibilitychange', onVisibilityChange);
 function start(){ 
     document.getElementById('wrapper').classList.add('pulse');
      
-    if (localStorage.getItem('timer')) {seconds = localStorage.getItem('timer') - timeDiff;}
+    if (localStorage.getItem('timer') && !paused) {
+        seconds = localStorage.getItem('timer') - timeDiff;
+    }
+    else if (localStorage.getItem('timer')) {
+        seconds = localStorage.getItem('timer')
+    }
     else {
         seconds = parseInt(document.getElementById('set-hours').value) * 3600 + parseInt(document.getElementById('set-minutes').value) * 60 + parseInt(document.getElementById('set-seconds').value);
     }
     timer = setInterval(runTimer, 1000);
+
     running = true; 
     closeModal();
     document.getElementById('stop').innerText = labelStartPauseButton();
-    document.getElementById('chosen-time').innerText = parseTime();
+    if (document.getElementById('chosen-time').innerText === '') {
+        document.getElementById('chosen-time').innerText = parseTime();
+        chosenTime = parseTime();
+    }
 }
 
 function reset() {
@@ -61,6 +80,7 @@ function reset() {
     document.getElementById('times-up').innerHTML = '';
     localStorage.removeItem('timer');
     state = 'reset';
+    document.getElementById('chosen-time').innerText = '';
 }
 
 function openDialog() {
@@ -79,10 +99,12 @@ function pause() {
         localStorage.setItem('timer', seconds);
         document.getElementById('stop').innerText = 'Starta';
         running = false;
+        paused = true;
     }
     else {
         start();
         document.getElementById('stop').innerText = 'Pausa';
+        paused = false;
     }
 }
 
@@ -126,6 +148,9 @@ function runTimer() {
 
 function stopTimer(timer) {
     clearInterval(timer);
+    document.getElementById('chosen-time').innerText = '';
+    running = false;
+    document.getElementById('wrapper').classList.remove('pulse');
 }
 
 function closeModal() {
@@ -133,9 +158,26 @@ function closeModal() {
     document.getElementById('overlay').removeAttribute('style');
 }
 
-function save(value) {
-    console.log('value ', value);
-    document.getElementById('result').innerText = value;
-    stopTimer(timer);
-    reset();
+function save(value) {   
+    console.log(seconds); 
+    if (seconds !== 0) {
+        savedArr.push(value);
+        const valueNode = document.createTextNode(value);
+        const resultEl = document.getElementById('results');
+        
+        resultEl.appendChild(document.createElement('div')).appendChild(valueNode);
+    
+        stopTimer(timer);
+        document.getElementById('stop').innerText = 'Starta';
+        reset();
+    }
+    else {
+        return false;
+    }
+}
+
+function resetResults() {
+    localStorage.removeItem('saved');
+    savedArr = [];
+    document.getElementById('results').innerHTML = '';
 }
