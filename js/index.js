@@ -66,8 +66,8 @@ function start(){
     closeModal();
     document.getElementById('stop').innerHTML = labelStartPauseButton();
     if (document.getElementById('chosen-time').innerText === '') {
-        document.getElementById('chosen-time').innerText = parseTime();
-        chosenTime = parseTime();
+        document.getElementById('chosen-time').innerText = parseTime(seconds);
+        chosenTime = parseTime(seconds);
     }
 }
 
@@ -119,12 +119,12 @@ function sploink () {
 	sploink.play();
 }
 
-function parseTime() {
-    const minutes = seconds / 60;
+function parseTime(timeInSeconds) {
+    const minutes = timeInSeconds/ 60;
     const hours = minutes / 60;
     
-    displaySecondsPos = seconds % 60 < 10 ? '0' + Math.floor(seconds % 60) : Math.floor(seconds % 60);
-    displaySecondsNeg = seconds % 60 > -10 ? '0' + Math.ceil(seconds % 60).toString().replace('-', '') : Math.ceil(seconds % 60).toString().replace('-', '');
+    displaySecondsPos = timeInSeconds% 60 < 10 ? '0' + Math.floor(timeInSeconds% 60) : Math.floor(timeInSeconds% 60);
+    displaySecondsNeg = timeInSeconds% 60 > -10 ? '0' + Math.ceil(timeInSeconds% 60).toString().replace('-', '') : Math.ceil(timeInSeconds% 60).toString().replace('-', '');
 
     displayMinutesPos = minutes % 60 < 10 ? '0' + Math.floor(minutes % 60) : Math.floor(minutes % 60);
     displayMinutesNeg = minutes % 60 > -10 ? '0' + Math.ceil(minutes % 60).toString().replace('-', '') : Math.floor(minutes % 60).toString().replace('-', '');
@@ -135,12 +135,12 @@ function parseTime() {
     const secondsToTimePos = '-' + displayHoursPos + ':' + displayMinutesPos + ':' + displaySecondsPos;
     const secondsToTimeNeg = displayHoursNeg + ':' + displayMinutesNeg + ':' + displaySecondsNeg;
 
-    return seconds > 0 ? secondsToTimePos : secondsToTimeNeg;
+    return timeInSeconds> 0 ? secondsToTimePos : secondsToTimeNeg;
 }
 
 function runTimer() {   
-    parseTime();    
-    document.getElementById('time').innerHTML = parseTime();
+    parseTime(seconds);    
+    document.getElementById('time').innerHTML = parseTime(seconds);
     
     seconds === 0 && timesUp();
     seconds--;   
@@ -159,12 +159,11 @@ function closeModal() {
 }
 
 function save(value) { 
-   
     if (seconds !== 0) {
         saldo += seconds;  
         localStorage.setItem('saldo', saldo);
-        document.getElementById('saldo').setAttribute('style', 'display: block');
-        document.getElementById('saldo').innerHTML = saldo;
+
+        document.getElementById('saldo').innerHTML = parseTime(saldo);
         savedArr.push(value);
         
         const now = new Date();
@@ -173,12 +172,22 @@ function save(value) {
         const valueNode = document.createTextNode(nowDate + ': ' + value);
         const resultEl = document.getElementById('results');
         stopTimer(timer);
+        if (seconds > 0) {
+            document.getElementById('saldo').classList.add('pos');
+            document.getElementById('saldo').classList.remove('neg');
+        }
+        else {
+            document.getElementById('saldo').classList.add('neg');
+            document.getElementById('saldo').classList.remove('pos');
+        }
         document.getElementById('stop').innerHTML = '<span class="material-symbols-outlined">play_arrow</span>Starta';
         reset();
        
         setTimeout( () => {
             document.getElementById('resetResults').setAttribute('style', 'display: block');
             resultEl.appendChild(document.createElement('div')).appendChild(valueNode);
+            document.getElementById('saldo').setAttribute('style', 'display: block');
+            
         }, 500);
     }
     else {
