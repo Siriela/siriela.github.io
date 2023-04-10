@@ -6,6 +6,7 @@ let timeDiff;
 let chosenTime;
 let paused;
 let savedArr = localStorage.getItem('saved') ? localStorage.getItem('saved').split(',') : [];
+let saldo = localStorage.getItem('saldo') ? localStorage.getItem('saldo') : 0;
 
 const onBeforeUnload = (e) => {
     e.preventDefault();
@@ -157,8 +158,13 @@ function closeModal() {
     document.getElementById('overlay').removeAttribute('style');
 }
 
-function save(value) {   
+function save(value) { 
+   
     if (seconds !== 0) {
+        saldo += seconds;  
+        localStorage.setItem('saldo', saldo);
+        document.getElementById('saldo').setAttribute('style', 'display: block');
+        document.getElementById('saldo').innerHTML = saldo;
         savedArr.push(value);
         
         const now = new Date();
@@ -182,9 +188,12 @@ function save(value) {
 
 function resetResults() {
     setTimeout( () => {
+        document.getElementById('saldo').removeAttribute('style');
         document.getElementById('resetResults').removeAttribute('style');
         document.getElementById('results').innerHTML = '';
     }, 300);
     localStorage.removeItem('saved');
+    localStorage.removeItem('saldo');
+    saldo = 0;
     savedArr = [];
 }
