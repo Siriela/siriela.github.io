@@ -1,7 +1,0 @@
-CACHE MANIFEST
-#Version 0.1
-
-index.html
-/js/index.js
-/css/index.css
-sploink.mp3

@@ -37,16 +37,24 @@ const onBlur = () => {
 }
 
 const onVisibilityChange = () => {
-    const oldTime = parseInt(localStorage.getItem('timestampLeave'));
-    const now = Date.now();
-    timeDiff = oldTime ? Math.floor((now - oldTime) / 1000) : 0;
-    seconds = localStorage.getItem('timer') ? localStorage.getItem('timer') - timeDiff : 0;
+   
+
+    if (document.visibilityState === 'hidden') {
+        localStorage.setItem('timer', seconds);
+        localStorage.setItem('timestampLeave', Date.now());
+    }
+    else {
+        const oldTime = parseInt(localStorage.getItem('timestampLeave'));
+        const now = Date.now();
+        timeDiff = oldTime ? Math.floor((now - oldTime) / 1000) : 0;
+        seconds = localStorage.getItem('timer') ? localStorage.getItem('timer') - timeDiff : 0;
+    }
 }
 
 window.addEventListener('beforeunload', onBeforeUnload);
 window.addEventListener('load', onLoad);
 window.addEventListener('blur', onBlur);
-window.addEventListener('visibilitychange', onVisibilityChange);
+document.addEventListener('visibilitychange', onVisibilityChange);
 
 function start(){ 
     document.getElementById('wrapper').classList.add('pulse');

@@ -41,7 +41,7 @@ Cornflower: #4c5270 */
     --olive-green: #3d550c;
     --green: #0a7029;
 
-    --red: #db1f48;
+    --red: #bd081c;
   }
 
 body {
@@ -98,9 +98,8 @@ main {
 }
 .button {
     color: #000;
-    border: 1px solid var(--blue-grotto);
     border-radius: 50%;
-    background-color: var(--blue-grotto);
+    background-color: var(--pewter);
     cursor: pointer;
     margin-top: -100px;
     z-index: 1000;
@@ -112,6 +111,7 @@ main {
     font-size: 1rem;
     transition: box-shadow .2s;
     font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; 
+    border: 2px solid transparent;
 }
 
 .button:hover {
@@ -119,13 +119,11 @@ main {
 }
 
 #set {
-    background-color: var(--gold);
     top: 6rem;
     right: -55px;
 }
 
 #stop {
-    background-color: var(--pewter);
     top: 6rem;
     left: -33px;
 }
@@ -138,7 +136,8 @@ main {
 }
 
 #resetResults {
-    background-color: var(--hot-pink);
+    background-color: var(--pewter);
+    color: var(--red);
     bottom: 9rem;
     right: 1rem;
     display: none;

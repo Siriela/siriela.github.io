@@ -1,0 +1,18 @@
+{
+    "short_name": "Tidssaldo",
+    "name": "Tidssaldo - räknar ut din flextid",
+    "icons": [
+      {
+        "src": "/img/logo.png",
+        "type": "image/png",
+        "sizes": "192x192"
+      },
+      {
+        "src": "/img/logo.png",
+        "type": "image/png",
+        "sizes": "512x512"
+      }
+    ],
+    "background_color": "#05445e",
+    "theme_color": "#75e6da"
+}
