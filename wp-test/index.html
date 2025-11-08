@@ -1,72 +1,11 @@
-<!DOCTYPE html>
-<html manifest="manifest.mf" lang="sv">
+<!doctype html>
+<html lang="sv">
 <head>
-<title>Tidssaldo</title>
-<link rel="shortcut icon" href="img/logo.png">
-<link rel="manifest" href="manifest.webapp">
-<meta name="theme-color" content="#000000">
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="stylesheet" href="css/index.css" type="text/css" />
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  <title>Hello WordPress!</title>
 </head>
-<style>
-    .material-symbols-outlined {
-      font-variation-settings:
-      'FILL' 0,
-      'wght' 400,
-      'GRAD' 0,
-      'opsz' 48;
-      font-size: 2.5rem;
-      display: block;
-    }
-    </style>
 <body>
-<script src="js/index.js" ></script>
-<main>
-    <div class="inner">
-        <h1 class="title">Tidssaldo</h1>
-        <div id="times-up"></div>
-        <div class="main-wrapper" id="wrapper">
-            <div id="chosen-time">00:00:00</div>
-            <div id="time" class="show-counter">00:00:00</div>
-            <button id="stop" onclick="pause()" class="button"></button>
-            <button id="set" onclick="openDialog()" class="button main-wrapper button-wrapper">
-                <span class="material-symbols-outlined">edit</span>Ny tid
-            </button>
-            <button id="finnish" onclick="save(document.getElementById('time').innerText)" class="button main-wrapper button-wrapper">
-                <span class="material-symbols-outlined">check</span>Klar
-            </button>
-        </div>
-    </div>
-    <div id="results" class="results"></div>
-    <div id="saldo" class="saldo"></div>
-    <button onclick="resetResults()" id="resetResults" class="button"><span class="material-symbols-outlined">delete</span>Rensa
-    </button>
-</main>
-<div id="overlay"></div>
-<dialog id="count-dialog">
-    <div class="count-dialog-inner">
-        <h2 class="dialog-title">Ny tid</h2>
-        <button id="resume-from-dialog" onclick="closeModal()" aria-label="Stäng" class="button">
-            <span class="material-symbols-outlined">close</span>
-        </button>
-        <div class="control-wrapper">
-            <div>
-                <label for="set-hours">Timmar</label>
-                <input class="control" type="number" id="set-hours">
-            </div>
-            <div>
-                <label for="set-minutes">Minuter</label>
-                <input class="control" type="number" id="set-minutes">
-            </div>
-            <div>
-                <label for="set-seconds">Sekunder</label>
-                <input class="control" type="number" id="set-seconds">
-            </div>
-        </div>
-        <button id="start-stop" onclick="start()" class="start-stop">Starta</button>
-        <button id="reset" onclick="reset()" class="start-stop">Nollställ</button>
-    </div>
-</dialog>
+  <h1>Hello WordPress!</h1>
+  <iframe src="http://localhost:8888/wp-admin/admin-ajax.php?action=h5p_embed&id=1" width="643" height="389" frameborder="0" allowfullscreen="allowfullscreen" title="Arithmetic Quiz"></iframe><script src="http://localhost:8888/wp-content/plugins/h5p/h5p-php-library/js/h5p-resizer.js" charset="UTF-8"></script>
+  <iframe src="http://localhost:8888/wp-admin/admin-ajax.php?action=h5p_embed&id=2" width="643" height="389" frameborder="0" allowfullscreen="allowfullscreen" title="Arithmetic Quiz"></iframe><script src="http://localhost:8888/wp-content/plugins/h5p/h5p-php-library/js/h5p-resizer.js" charset="UTF-8"></script>
 </body>
 </html>
